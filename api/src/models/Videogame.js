@@ -8,5 +8,37 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  });
+
+    id: {
+      type: DataTypes.UUID, // identificador con números y letras distinto al de la API
+      allowNull: false,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
+    },
+
+    description: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+   
+    platform: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    image: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    released: {
+      type: DataTypes.STRING,
+    },
+
+    rating: {
+      type: DataTypes.DECIMAL,
+    }
+
+  },
+  { timestamps: false });
 };
