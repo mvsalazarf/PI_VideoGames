@@ -37,6 +37,10 @@ module.exports = (sequelize) => {
 
     rating: {
       type: DataTypes.DECIMAL,
+    },
+    created: {
+      type: DataTypes.STRING,
+      created: true,
     }
 
   },
