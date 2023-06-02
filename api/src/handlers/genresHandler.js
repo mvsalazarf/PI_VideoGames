@@ -1,14 +1,23 @@
+const {getGenresFromDb, getGenresFromApi} = require('../controllers/genresController')
 
+const getGenresHandler = async (req, res) => {
 
-
-const getGenresHandler = (req, res) => {
-//  Obtiene un arreglo con todos los géneros existentes de la API.
-// En una primera instancia, cuando la base de datos este vacía, deberás guardar todos los géneros que encuentres en la API.
-// Estos deben ser obtenidos de la API (se evaluará que no haya hardcodeo). Luego de obtenerlos de la API, deben ser guardados en la base de datos para su posterior consumo desde allí.
-  
-  
-  
-}
+  try {
+    // Buscar los géneros en la base de datos
+    const genresDb = await getGenresFromDb();
+   
+    if (genresDb.length > 0) {
+      // Si se encontraron géneros en la base de datos, retornarlos
+      res.status(200).json(genresDb);
+    } else {
+      // Si no se encontraron géneros en la base de datos, obtenerlos de la API
+      const genresApi = await getGenresFromApi();
+      res.status(200).json(genresApi);
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 module.exports = {
   getGenresHandler

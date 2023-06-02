@@ -1,7 +1,6 @@
-const axios = require('axios');
+
 const { getGamesByName, getAllGames, getVideogameById, createVideogame } = require('../controllers/videoGamesControllers');
-require('dotenv').config()
-const { API_KEY } = process.env;
+
 
 
 const getVideogamesHandler = async (req, res) => {
@@ -43,7 +42,7 @@ try {
   createVideogame(name, image, description, released, rating, platform, genres)
   res.status(200).send('New video game has been added')
 } catch (error) {
-  res.status(400).json({error: error.message})
+  res.status(400).json({ error: error.message })
 }
 
   
