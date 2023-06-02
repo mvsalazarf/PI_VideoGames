@@ -13,8 +13,8 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
     created: {
-      type: DataTypes.STRING,
-      created: true,
+      type: DataTypes.BOOLEAN,
+      default: true,
     }
   },
   { timestamps: false });

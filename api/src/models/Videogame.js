@@ -39,8 +39,8 @@ module.exports = (sequelize) => {
       type: DataTypes.DECIMAL,
     },
     created: {
-      type: DataTypes.STRING,
-      created: true,
+      type: DataTypes.BOOLEAN,
+      default: true,
     }
 
   },

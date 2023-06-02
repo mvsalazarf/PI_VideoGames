@@ -22,6 +22,7 @@ const getGenresFromApi = async () => {
     await Genre.create({
       id: uuidv4(), // Generar un UUID válido como ID
       name: genre.name,
+      created: false,
     });
   }
 
