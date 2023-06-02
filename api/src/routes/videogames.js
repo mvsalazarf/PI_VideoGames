@@ -8,7 +8,7 @@ const { getVideogamesHandler,
 
 gamesRouter.get('/', getVideogamesHandler)
 
-gamesRouter.get('/:idVideogames', getGameDetailHandler)
+gamesRouter.get('/:id', getGameDetailHandler)
 
 gamesRouter.post('/', createVideogammeHandler)
 

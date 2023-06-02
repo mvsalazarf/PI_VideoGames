@@ -13,7 +13,7 @@ function transformGames(games) {
       name: game.name,
       description: game.description,
       genres: game.genres.map((genre) => genre.name),
-      platforms: platforms.map((p) => p.platform.name),
+      platforms: game.platforms.map((p) => p.platform.name),
       rating: game.rating,
       released: game.released
     };
@@ -35,6 +35,7 @@ const cleanApiArray2 = async () => {
   //traigo los juegos de la api ordenandolos en 100 por página
   const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`);
   //ordeno la info de la api para que tenga las mismas características que la DB
+
   const apigames = response.data.results;
   const transformedGames = transformGames(apigames);
   return transformedGames;
@@ -78,8 +79,19 @@ const getAllGames = async () => {
 const getVideogameById = async (id, source) => {
 
   if (source === 'api') {
-      const gameIdApi = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
-      return transformGames(gameIdApi.data)
+    const {data} = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
+   
+    const gameId = {
+       id: data.id,
+      image: data.background_image,
+      name: data.name,
+      description: data.description,
+      genres: data.genres.map((genre) => genre.name),
+      platforms: data.platforms.map((p) => p.platform.name),
+      rating: data.rating,
+      released: data.released
+    }
+    return gameId;
     } else {
       return await Videogame.findByPk(id, {
       include: [Genre],
@@ -90,16 +102,27 @@ const getVideogameById = async (id, source) => {
 
 
 
-const createVideogame = async () => {
+const createVideogame = async (name, image, description, released, rating, platform, genres) => {
 //aqui va la lógica de la función que interactua con el modelo de la DB
-  // 
-  // const newVideogame = await Videogame.create({
-  //       name,
-  //       description,
-  //       reldate,
-  //       rating, 
-  //       platform
-  //    })
+  platform = platform.toString();
+ 
+  let newGame = await Videogame.create({
+    name: name,
+    image: image,
+    description: description,
+    released: released,
+    rating: rating || 1,
+    platform: platform,
+    created: true
+  })
+  
+// Busca los géneros en la base de datos
+  let genreDb = await Genre.findAll({
+        where: {name : genres}
+    })
+// Asocia los géneros al videojuego creado
+  newGame.addGenre(genreDb);
+  
 };
 
 

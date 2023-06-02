@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { getGamesByName, getAllGames, getVideogameById } = require('../controllers/videoGamesControllers');
+const { getGamesByName, getAllGames, getVideogameById, createVideogame } = require('../controllers/videoGamesControllers');
 require('dotenv').config()
 const { API_KEY } = process.env;
 
@@ -26,27 +26,26 @@ const getVideogamesHandler = async (req, res) => {
 
 const getGameDetailHandler = async (req, res,) => {
 // Tiene que incluir los datos del género del videojuego al que está asociado.
-  const { id } = req.params;
-  console.log(id)
- 
-   const source = isNaN(id) ? 'db' : 'api';
+   const {id}  = req.params;
+  const source = isNaN(id) ? 'db' : 'api'; 
   try {
-    const results = await getVideogameById(id, source);
-    console.log(results)
+    const results = await getVideogameById(id, source);   
     res.status(200).json(results)
   } catch (error) {
     res.status(404).json('Id not found')
   }
-  
 }
 
 const createVideogammeHandler = async (req, res) => {
 //   Esta ruta recibirá todos los datos necesarios para crear un videojuego y relacionarlo con sus géneros solicitados.
-// Toda la información debe ser recibida por body.
-// Debe crear un videojuego en la base de datos, y este debe estar relacionado con sus géneros indicados (al menos uno).
-  
-  
-  
+const {name, image, description, released, rating, platform, genres} = req.body
+try {
+  createVideogame(name, image, description, released, rating, platform, genres)
+  res.status(200).send('New video game has been added')
+} catch (error) {
+  res.status(400).json({error: error.message})
+}
+
   
 }
 
