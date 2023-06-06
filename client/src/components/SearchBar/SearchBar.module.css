@@ -1,0 +1,37 @@
+.nav{
+  height: 90px;
+  text-align: center;
+  margin-top: 1px;
+  background-color:thistle;
+  border-bottom: black;
+  
+  
+}
+
+
+.li{
+      font-weight: bold;
+      display: inline-block;
+      text-decoration: none;
+      font-size: 20px;
+      padding: 18px;
+      
+}
+
+.h{
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 25px;
+}
+
+.button{
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  margin-left: 5px;
+  border-radius: 20%;
+}
+
+.input{
+  font-size: 18px;
+    margin-left: 5px;
+    border-radius: 10%;
+}

@@ -15,7 +15,8 @@ function transformGames(games) {
       genres: game.genres.map((genre) => genre.name),
       platforms: game.platforms.map((p) => p.platform.name),
       rating: game.rating,
-      released: game.released
+      released: game.released,
+      created: false
     };
   });
 }
@@ -63,7 +64,7 @@ const getGamesByName = async (name) => {
   //en esta función junto toda la información de la API más la base de datos
   const apiData = await cleanApiArray(name);
   const dbData = await dataBasebyName(name);
-  const totalResult = [...apiData, ...dbData];
+  const totalResult = [...dbData, ...apiData];
   const first15Elements = totalResult.slice(0, 15);
   return first15Elements;
 }
@@ -72,12 +73,12 @@ const getAllGames = async () => {
   //uno los resultados de la API con los de la base de datos
   const apiData = await cleanApiArray2();
   const dbData = await dataBase();
-  const totalResult = [...apiData, ...dbData];
+  const totalResult = [...dbData, ...apiData];
   return totalResult;
 }
 
 const getVideogameById = async (id, source) => {
-
+//verifico si el id pertenece a la api o a la base de datoss
   if (source === 'api') {
     const {data} = await axios.get(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`)
    
@@ -113,7 +114,6 @@ const createVideogame = async (name, image, description, released, rating, platf
     released: released,
     rating: rating || 1,
     platform: platform,
-    created: true
   })
   
 // Busca los géneros en la base de datos

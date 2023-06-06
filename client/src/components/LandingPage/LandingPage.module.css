@@ -1,0 +1,58 @@
+
+.button{
+    box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);;
+  margin-top: 200px;
+  cursor: pointer;
+    
+      font-family: 'Bebas Neue', sans-serif;
+    color: rgb(14, 8, 8);
+    font-size: 500%;
+  
+    border-radius: 20px;
+    background-color:chartreuse;
+ 
+}
+
+
+
+.div{
+  height: 100vh;
+  width: 100%;
+  background: url('./control.jpg');
+   
+}
+
+.div2{
+  border-radius: 400px;
+ 
+}
+
+.h1{
+  margin-top: 0px;
+  cursor: pointer;
+  font-family: 'Bungee Shade', cursive;
+    color:rgb(16, 15, 16);
+    font-size: 50px;
+  text-align: center;
+    border-radius: 20px;
+    background: none;
+    
+}
+
+.container {
+  align-items: center;
+  align-content: center;
+  /* background: url('./background.jpg');
+    height: 1080px; */
+    
+}
+
+.title button:hover {
+  transition: all 0.8s ease;
+  color: #9ba5ff;
+  cursor: pointer;
+  font-size: 250%;
+  transform-origin: center;
+  text-shadow: 0 0 10px rgb(255, 0, 0),
+}
+

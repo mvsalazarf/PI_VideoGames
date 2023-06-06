@@ -1,10 +1,24 @@
 import './App.css';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from './components/Home/Home';
+import LandingPage from './components/LandingPage/LandingPage';
+import CreateVg from '../src/components/CreateVg/createVg';
+import VgDetails from './components/VgDetails/VgDetails';
+import SearchBar from './components/SearchBar/SearchBar';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Henry Videogames</h1>
+    <BrowserRouter>
+      <div className="App">
+        
+      <Switch>
+        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/videogames' component={CreateVg} />
+        <Route exact path= '/videogames/:id' component = {VgDetails} />
+        <Route exact path='/home' component={Home} />          
+     </Switch>
     </div>
+    </BrowserRouter>
   );
 }
 
