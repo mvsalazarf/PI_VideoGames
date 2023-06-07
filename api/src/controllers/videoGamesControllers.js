@@ -72,6 +72,8 @@ const getGamesByName = async (name) => {
 const getAllGames = async () => {
   //uno los resultados de la API con los de la base de datos
   const apiData = await cleanApiArray2();
+ 
+
   const dbData = await dataBase();
   const totalResult = [...dbData, ...apiData];
   return totalResult;
@@ -105,7 +107,7 @@ const getVideogameById = async (id, source) => {
 
 const createVideogame = async (name, image, description, released, rating, platform, genres) => {
 //aqui va la lógica de la función que interactua con el modelo de la DB
-  platform = platform.toString();
+platform = platform.join(', ');
  
   let newGame = await Videogame.create({
     name: name,
@@ -114,6 +116,7 @@ const createVideogame = async (name, image, description, released, rating, platf
     released: released,
     rating: rating || 1,
     platform: platform,
+    created: true,
   })
   
 // Busca los géneros en la base de datos

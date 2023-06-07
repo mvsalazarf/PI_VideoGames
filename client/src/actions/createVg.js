@@ -1,5 +1,5 @@
-import CREATE_VIDEOGAMES from "."
-import axios from 'axios'
+import { CREATE_VIDEOGAMES } from '.';
+import axios from 'axios';
 
 export default function createVg(payload) {
   return async function (dispatch) {

@@ -5,7 +5,7 @@ export default function getVgById(id) {
   return async function (dispatch) {
     try {
       const {data} = await axios.get(`http://localhost:3001/videogames/${id}`)
-      if (data.genres[0].id) {
+      if (data.genres[0]?.id) {
       const genreObject = data.genres.map((genre) => genre.name)
         data.genres = genreObject.join(', ')
       } else {

@@ -1,4 +1,4 @@
-import { GET_VG_BY_NAME, GET_VIDEOGAMES, GET_VG_BY_ID, VG_ORIGIN, GENRE_FILTER, FILTERED_GAMES, CREATE_VIDEOGAMES } from "../actions";
+import { GET_VG_BY_NAME, GET_VIDEOGAMES, GET_VG_BY_ID, VG_ORIGIN, GENRE_FILTER, FILTERED_GAMES, CREATE_VIDEOGAMES, GET_GENRES } from "../actions";
 
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
 
 function rootReducer(state = initialState, action) {
   switch (action.type) {
+    
     case GET_VIDEOGAMES:
       return {
         ...state,
@@ -24,6 +25,11 @@ function rootReducer(state = initialState, action) {
         videogames: action.payload,
        
       }
+    case GET_GENRES:
+        return{       
+          ...state,   
+          genres: action.payload
+      }
     case GET_VG_BY_ID:
       return {
         ...state, 
@@ -31,14 +37,14 @@ function rootReducer(state = initialState, action) {
       }
     case GENRE_FILTER:
       const allVgames = state.filteredVg
-      const genreFilter = action.payload === 'All' ? allVgames : allVgames.filter(g => g.genres.includes(action.payload))
+      const genreFilter = allVgames.filter(g => g.genres.includes(action.payload))
       if (!genreFilter.length) {
         alert(`No videogames found based in ${action.payload} genre`)
       } 
       return {
         ...state,
           videogames: genreFilter
-      }
+        }   
     case CREATE_VIDEOGAMES:
       return {
         ...state,

@@ -7,15 +7,15 @@ export default function VgCard({ name, image, genres }) {
 
   const [genre, setGenre] = useState(genres.join(', '));
 
-  //verifico si es un objeto proveniente de la base de datos, si lo es, lo convierto en string para setearlo en genre
-  // useEffect(() => {
-  //   if (genres[0].id) {
+  // verifico si es un objeto proveniente de la base de datos, si lo es, lo convierto en string para setearlo en genre
+  useEffect(() => {
+    if (genres[0]?.id) {
 
-  //     const genreObject = genres.map((genre) => genre.name)
-  //     const stringGenre = genreObject.join(', ')
-  //     setGenre(stringGenre)
-  //   }
-  // }, []);
+      const genreObject = genres.map((genre) => genre.name)
+      const stringGenre = genreObject.join(', ')
+      setGenre(stringGenre)
+    }
+  }, []);
 
 
   return (

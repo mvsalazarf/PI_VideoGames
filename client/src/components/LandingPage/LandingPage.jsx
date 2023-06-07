@@ -1,19 +1,15 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+
 import { Link } from 'react-router-dom';
 import style from './LandingPage.module.css'
-import getVideogames from "../../actions/getVideogames";
+
 
 
 
 
 export default function LandingPage() {
 
-  const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getVideogames())
-  }, [dispatch])
+
 
   return (
     <div className={style.div}>

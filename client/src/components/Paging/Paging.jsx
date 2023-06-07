@@ -17,7 +17,7 @@ export default function Paging({ vgPerPage, allVg, currentPage, actualPage }) {
             pageNumbers && pageNumbers.map((num) => {
               return (
                 <li key={num}>
-                  <a href='not found' onClick={() => actualPage(num)}>{num}</a>
+                  <button onClick={() => actualPage(num)}>{num}</button>
                 </li>
               )
             })

@@ -5,7 +5,6 @@ export default function getVgByName(name) {
   return async function (dispatch) {
     try {
       var json = await axios.get(`http://localhost:3001/videogames?name=${name}`)
-      console.log(json)
       return dispatch({
         type: GET_VG_BY_NAME,
         payload: json.data

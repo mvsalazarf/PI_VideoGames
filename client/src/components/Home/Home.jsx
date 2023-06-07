@@ -8,6 +8,8 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import genreFilter from '../../actions/genreFilter'
 import filteredGames from '../../actions/filteredGames'
 import vgOrigin from '../../actions/vgOrigin'
+import style from '../Home/Home.module.css'
+import getgenres from "../../actions/getGenres";
 
 
 export default function Home() {
@@ -29,7 +31,11 @@ export default function Home() {
 
   function handleGenreFilter(e) {
     e.preventDefault();
-    dispatch(genreFilter(e.target.value))
+    if (e.target.value === 'All') {
+      dispatch(getVideogames())
+    } else {
+      dispatch(genreFilter(e.target.value))
+    }
   }
 
   function handleSortedGames(e) {
@@ -47,12 +53,14 @@ export default function Home() {
     dispatch(getVideogames())
   }, [dispatch])
 
-  if (allVg.length === 0) {
-    return <h1>Loading...</h1>
-  }
+  useEffect(() => {
+    dispatch(getgenres());
+  }, [dispatch])
+
+
 
   return (
-    <div>
+    <div className={style.div1}>
 
       <div>
 
@@ -61,44 +69,46 @@ export default function Home() {
         </div>
 
         <div>
-          <select onChange={(e) => handleGenreFilter(e)}>
+          <select className={style.selectf} onChange={(e) => handleGenreFilter(e)} defaultValue="All">
+            <option value='All' selected>All</option>
             {
+
               allGenres.sort().map((genre) => {
-                return <option value={genre}>{genre}</option>
+                return <option key={genre.id} value={genre.name}>{genre.name}</option>
               })
             }
           </select>
         </div>
 
         <div>
-          <select onChange={e => handleSortedGames(e)} onBlur={e => handleSortedGames(e)}>
-            <option value='asc'>SORT</option>
-            <option value='desc'>Backward</option>
+          <select className={style.selectf} onChange={e => handleSortedGames(e)} onBlur={e => handleSortedGames(e)}>
+            <option value='asc'>A-Z ↓</option>A-Z ↑
+            <option value='desc'>A-Z ↑</option>
             <option value='rating'>Rating</option>
           </select>
         </div>
 
         <div>
-          <select onChange={e => handleOrigin(e)}>
+          <select className={style.selectf} onChange={e => handleOrigin(e)}>
             <option value='All'>Api and DB Games</option>
             <option value='DB'>Db Games</option>
             <option value='API'>Api Games</option>
           </select>
         </div>
 
-        <div>
+        <div className={style.div4}>
           <Paging vgPerPage={vgPerPage} allVg={allVg.length} currentPage={currentPage} actualPage={actualPage} />
         </div>
 
-        <div>
+        <div className={style.div5}>
           {/* Mapeo de los videojuegos de la página actual */}
           {currentVgs && currentVgs.map((vg) => (
-            <div key={vg.id}>
-              <Link to={`/videogames/${vg.id}`}>
+            <div key={vg?.id}>
+              <Link to={`/videogames/${vg?.id}`}>
                 <VgCard
-                  name={vg.name}
-                  image={vg.image}
-                  genres={vg.genres}
+                  name={vg?.name}
+                  image={vg?.image}
+                  genres={vg?.genres}
                 />
               </Link>
             </div>

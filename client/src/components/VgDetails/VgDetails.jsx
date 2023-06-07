@@ -20,7 +20,7 @@ export default function VgDetails() {
   }, [])
 
   var detail = useSelector((state) => state.videogameDetails)
-  console.log(detail)
+
 
   return (
     <div className={style.wrapper}>
