@@ -10,20 +10,20 @@ export default function Paging({ vgPerPage, allVg, currentPage, actualPage }) {
   }
 
   return (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center' }}>
       <nav>
-        <ul>
-          {
-            pageNumbers && pageNumbers.map((num) => {
-              return (
-                <li key={num}>
-                  <button onClick={() => actualPage(num)}>{num}</button>
-                </li>
-              )
-            })
-          }
-          <span>{`Actual page ${currentPage}`}</span>
-        </ul>
+
+        {
+          pageNumbers && pageNumbers.map((num) => {
+            return (
+
+              <button style={{ margin: 6 }} onClick={() => actualPage(num)}>{num}</button>
+
+            )
+          })
+        }
+        <p>{`Actual page ${currentPage}`}</p>
+
       </nav>
     </div>
   )

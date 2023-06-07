@@ -68,27 +68,24 @@ export default function Home() {
           <SearchBar />
         </div>
 
-        <div>
+        <div style={{ display: 'flex', justifyContent: 'space-evenly', marginInline: 600 }}>
           <select className={style.selectf} onChange={(e) => handleGenreFilter(e)} defaultValue="All">
             <option value='All' selected>All</option>
             {
-
               allGenres.sort().map((genre) => {
                 return <option key={genre.id} value={genre.name}>{genre.name}</option>
               })
             }
           </select>
-        </div>
 
-        <div>
+
+
           <select className={style.selectf} onChange={e => handleSortedGames(e)} onBlur={e => handleSortedGames(e)}>
             <option value='asc'>A-Z ↓</option>A-Z ↑
             <option value='desc'>A-Z ↑</option>
             <option value='rating'>Rating</option>
           </select>
-        </div>
 
-        <div>
           <select className={style.selectf} onChange={e => handleOrigin(e)}>
             <option value='All'>Api and DB Games</option>
             <option value='DB'>Db Games</option>

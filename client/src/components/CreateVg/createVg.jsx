@@ -51,9 +51,9 @@ export default function CreateVg() {
       ...input,
       [e.target.name]: e.target.value
     })
-    // setErrors(validate({
-    //   ...input, [e.target.name]: e.target.value
-    // }))
+    setErrors(validate({
+      ...input, [e.target.name]: e.target.value
+    }))
   }
 
   function handlePlatform(e) {
@@ -124,24 +124,28 @@ export default function CreateVg() {
 
   return (
     <>
-      <div>
-        <h1>Create your own videogame</h1>
 
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Game Name:</label>
-            <input onChange={handleOnChange} onBlur={handleOnChange}
+      <div className={style.wrapper}>
+        <h1 className={style.h1}>Create your own videogame</h1>
+
+        <form onSubmit={handleSubmit} className={style.form}>
+          <div className={style.container}>
+            <label className={style.name}> <b>Game Name:</b></label>
+            <input className={style.name} onChange={handleOnChange} onBlur={handleOnChange}
               type='text' name='name' value={input.name} />
             {errors.name && (<p className={style.error}> {errors.name} </p>)}
           </div>
+          <br />
 
-          <div>
-            <label>Image:</label>
-            <input onChange={handleOnChange} type='text' name='image' value={input.image} />
-            <div>
+          <div className={style.container}>
+            <div className={style.label}>
+              <label><b> Image:</b></label>
+              <input onChange={handleOnChange} type='text' name='image' value={input.image} />
+            </div>
+            <div className={style.img}>
               {
                 input.image ?
-                  <img src={input.image} alt={input.name} /> :
+                  <img src={input.image} alt={input.name} className={style.img} /> :
                   <>
                   </>
               }
@@ -149,46 +153,54 @@ export default function CreateVg() {
 
           </div>
 
-          <div>
-            <label>Description:</label>
+          <div className={style.msgarea}>
+            <label className={style.labeldes}> <b>Description:</b></label>
             <textarea onChange={handleOnChange} type='text' name='description' value={input.description} />
           </div>
 
 
-          <div>
-            <label>Released date:</label>
+          <div className={style.reles}>
+            <label> <b>Released date:</b></label>
             <input onChange={handleOnChange} type='text' name='released' value={input.released}
               placeholder='YYYY-MM-DD' />
           </div>
 
-          <div>
-            <label>Rating:</label>
+          <div className={style.rating}>
+            <label><b>Rating:</b></label>
             <input onChange={handleOnChange} onBlur={handleOnChange}
               type='text' name='rating' value={input.rating} placeholder='ex 4.3' />
             {errors.rating && (<p className={style.error}> {errors.rating} </p>)}
           </div>
-
+          <hr />
           <div>
-            <label>Genres:</label>
-            {allGenres?.map(p => {
-              return (<> <p><input onChange={handleGenres} key={p.id} id={p.id} type="checkbox" value={p.name} /> {p.name}</p></>)
-            })}
+            <label><b>Genres:</b></label>
+            <div style={{ display: 'flex', maxWidth: 800, flexWrap: 'wrap', justifyContent: 'space-around' }}>
+              {allGenres?.map(p => {
+                return (<> <p><input onChange={handleGenres} key={p.id} id={p.id} type="checkbox" value={p.name} /> {p.name}</p></>)
+              })}
+            </div>
+
+          </div>
+          <hr />
+          <div>
+            <label><b>Platforms:</b></label>
+            <div style={{ display: 'flex', maxWidth: 800, flexWrap: 'wrap', justifyContent: 'space-around' }}>
+              {platform?.map(p => {
+                return (<> <p><input onChange={handlePlatform} key={p} type="checkbox" value={p} /> {p}</p></>)
+              })}
+            </div>
           </div>
 
-          <div>
-            <label>Platforms:</label>
-            {platform?.map(p => {
-              return (<> <p><input onChange={handlePlatform} key={p} type="checkbox" value={p} /> {p}</p></>)
-            })}
+          <hr />
+          <div style={{ display: 'flex', justifyContent: 'space-evenly', maxHeight: 20 }}>
+            <button type='submit' style={{ maxHeight: 20, }}><b>Add Game</b></button>
+            <><Link to='/home'><button><b>Back To Home</b></button></Link> </>
           </div>
 
 
-          <button type='submit'>Add Game</button>
-          <p><Link to='/home'><button>Back To Home</button></Link> </p>
+        </form >
+      </div >
 
-
-        </form>
-      </div>
     </>
   )
 }

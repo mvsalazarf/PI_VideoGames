@@ -25,37 +25,52 @@ export default function VgDetails() {
   return (
     <div className={style.wrapper}>
       {
-        !vgByIdSelect.id ? <h1>Loading...</h1> :
+        !vgByIdSelect.id ? <h1 style={{
+          display: 'flex', justifyContent: 'center'
+        }}>Loading...</h1> :
           (
             <>
-              <div className={style.divs}>
+              <div className={style.wrapper}>
+                <div className={style.divs}>
 
-                <h2>{detail.name}</h2>
-                <img src={detail.image} alt='no imag found' width='250px' height='300px' />
-              </div>
+                  <h2>{detail.name}</h2>
+                  <img src={detail.image} className={style.img} alt='no imag found' width='250px' height='300px' />
+                </div>
+                <hr />
 
-              <div className={style.divs}>
-                <h3>Description:</h3>
-                <h5>{detail.description}</h5>
-              </div>
+                <div style={{ maxWidth: 400 }}>
+                  <h3>Description:</h3>
+                  <h5>{detail.description}</h5>
+                </div>
 
-              <div className={style.divs}>
-                <h4>Rating: {detail.rating}</h4>
-              </div>
+                <hr />
 
-              <div className={style.divs}>
-                <h4>Released date: {detail.released}</h4>
-              </div>
 
-              <div className={style.divs}>
-                <h4>Genres: {detail.genres}</h4>
-                <h4>Platforms: {detail.platforms}</h4>
+                <div className={style.divs}>
+                  <h4>Rating: {detail.rating}</h4>
+                </div>
+
+                <hr />
+                <hr />
+
+                <div className={style.divs}>
+                  <h4>Released date: {detail.released}</h4>
+                </div>
+
+                <hr />
+                <hr />
+
+                <div style={{ maxWidth: 200 }}>
+                  <h4>Genres: {detail.genres}</h4>
+                  <h4>Platforms: {detail.platforms}</h4>
+                </div>
               </div>
             </>
           )
       }
 
+      <hr />
       <Link to='/home'>Home</Link>
-    </div>
+    </div >
   )
 }

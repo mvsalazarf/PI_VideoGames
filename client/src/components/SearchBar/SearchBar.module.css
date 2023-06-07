@@ -4,8 +4,8 @@
   margin-top: 1px;
   background-color:thistle;
   border-bottom: black;
-  
-  
+  border-bottom-width: 50;
+  border-bottom-style: solid;
 }
 
 

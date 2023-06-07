@@ -1,14 +1,23 @@
 .wrapper{
   display: flex;
-    margin: 1px;
+    margin: 1%;
     width: 1260px;
-    right: 20% auto;
+    justify-content: space-around;
+  
+  
 }
 
-.divs{
+/* .divs{
   display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-content: space-around;
     padding: 1px;
     margin: 1px;
+} */
+
+.img{
+  display: flex;
+    margin-left: 50px;
+   
+    
 }

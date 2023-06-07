@@ -4,6 +4,7 @@
     height: 40px;
     background-color: wheat;
     cursor: grab;
+    
 }
 
 .div1{
@@ -12,6 +13,7 @@
     justify-content: center;
     align-content: space-around;
     padding: 10px;
+    background-color: antiquewhite;
 }
 .div4{
   display: flex;
