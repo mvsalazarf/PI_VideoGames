@@ -24,7 +24,7 @@ export default function VgCard({ name, image, genres }) {
       <div className={st.card}>
         <h4 className={st.h4}>{name}</h4>
         <p>{genre}</p>
-        <img src={image} alt='not found' className={st.image} />
+        <img src={image} alt={name} className={st.image} />
       </div>
 
     </div>

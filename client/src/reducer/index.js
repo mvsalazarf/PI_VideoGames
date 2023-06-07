@@ -43,7 +43,7 @@ function rootReducer(state = initialState, action) {
       } 
       return {
         ...state,
-          videogames: genreFilter
+        videogames: genreFilter
         }   
     case CREATE_VIDEOGAMES:
       return {

@@ -5,7 +5,7 @@ import createVg from '../../actions/createVg'
 import getVideogames from '../../actions/getVideogames';
 import style from './createVg.module.css'
 import getgenres from '../../actions/getGenres';
-import axios from 'axios';
+
 
 
 
@@ -23,11 +23,11 @@ export default function CreateVg() {
 
   function validate(input) {
     let errors = {}
-    if (!input.name) {
+    if (!input.name || input.name.length > 10) {
       errors.name = 'Name is required'
     } else if (!input.rating || input.rating < 0 || input.rating > 10) {
       errors.rating = 'Rating must be a nummber between 0-10'
-    } else if (!input.description.length || input.description.length > 50) {
+    } else if (!input.description.length || input.description.length > 20) {
       errors.description = 'Description missing or too long'
     }
     return errors
@@ -98,12 +98,19 @@ export default function CreateVg() {
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (!input.name || input.name.length > 10) {
+      return alert('Name missing or too long')
+    }
     if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(input.released)) { return alert('Wrong released date format. Should be YYYY-MM-DD OR YYYY-M-D') }
     if (!input.rating) { return alert('Rating is required') }
+    if (!input.description.length || input.description.length > 20) { return alert('Description missing or too long') }
     if (!/^(?:[1-9]\d{0,2}(?:,\d{3})*|0)(?:\.\d+)?$/.test(input.rating) ||
       input.rating < 0 || input.rating > 10) {
       return alert('Wrong format for Rating. Should be a number between 0-10')
     }
+    if (input.genres.length === 0) { return alert('Genre is required') }
+    if (input.platform.length === 0) { return alert('Platform is required') }
+
 
 
     dispatch(createVg(input));
@@ -156,6 +163,7 @@ export default function CreateVg() {
           <div className={style.msgarea}>
             <label className={style.labeldes}> <b>Description:</b></label>
             <textarea onChange={handleOnChange} type='text' name='description' value={input.description} />
+            {errors.description && (<p className={style.error}> {errors.description} </p>)}
           </div>
 
 

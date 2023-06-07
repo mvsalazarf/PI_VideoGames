@@ -25,6 +25,7 @@ export default function Home() {
   const [render, setRender] = useState('');
 
 
+
   const actualPage = (pageNumber) => {
     setcurrentPage(pageNumber)
   }
@@ -112,7 +113,7 @@ export default function Home() {
           ))}
           {!currentVgs && (
             <div>
-              <h1>loading...</h1>
+              <h1 className={style.loading}>loading...</h1>
             </div>
           )}
         </div>

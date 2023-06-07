@@ -23,7 +23,7 @@ function transformGames(games) {
 
 const cleanApiArray = async (name) => {
   name = name.split(' ').join('-').toLowerCase();
-  //traigo los juegos de la api ordenandolos en 50 por página
+  //traigo los juegos de la api ordenandolos en 100 por página
   const response = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${ API_KEY }&page_size=100`);
   //ordeno la info de la api para que tenga las mismas características que la DB
   const apigames = response.data.results;
