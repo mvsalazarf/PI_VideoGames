@@ -34,12 +34,17 @@ const cleanApiArray = async (name) => {
 const cleanApiArray2 = async () => {
   
   //traigo los juegos de la api ordenandolos en 100 por página
-  const response = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page_size=100`);
+  const response1 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=1&page_size=40`);
+  const response2 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=2&page_size=40`);
+  const response3 = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&page=3&page_size=40`);
+  const r = await Promise.all([
+    response1, response2, response3
+  ])
+  const apiGames = []
+  r.map((game) => apiGames.push(game.data.results))
   //ordeno la info de la api para que tenga las mismas características que la DB
-
-  const apigames = response.data.results;
-  const transformedGames = transformGames(apigames);
-  return transformedGames;
+  const apiGamesConcat = transformGames(apiGames[0].concat(apiGames[1].concat(apiGames[2]))) 
+  return apiGamesConcat  
 };
 
 const dataBasebyName = async (name) => {

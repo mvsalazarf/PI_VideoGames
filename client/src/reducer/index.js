@@ -3,7 +3,7 @@ import { GET_VG_BY_NAME, GET_VIDEOGAMES, GET_VG_BY_ID, VG_ORIGIN, GENRE_FILTER, 
 
 const initialState = {
   videogames: [],
-  videogameDetails:{},
+  videogameDetails:[],
   genres:[],
   createVg: [],
   filteredVg: [],

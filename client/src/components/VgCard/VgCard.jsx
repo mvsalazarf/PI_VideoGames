@@ -3,7 +3,7 @@ import st from './VgCard.module.css'
 import { useState } from 'react';
 
 
-export default function VgCard({ name, image, genres }) {
+export default function VgCard({ name, image, genres, rating }) {
 
   const [genre, setGenre] = useState(genres.join(', '));
 
@@ -25,6 +25,7 @@ export default function VgCard({ name, image, genres }) {
         <h4 className={st.h4}>{name}</h4>
         <p>{genre}</p>
         <img src={image} alt={name} className={st.image} />
+        <p>{rating}</p>
       </div>
 
     </div>

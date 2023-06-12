@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import getVgByName from '../../actions/getVgByName';
 import style from './SearchBar.module.css'
 
-export default function SearchBar() {
+export default function SearchBar({ pageConfig }) {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
@@ -16,6 +16,7 @@ export default function SearchBar() {
 
   function handleSubmit(e) {
     e.preventDefault();
+    pageConfig(1)
     dispatch(getVgByName(name));
     setName('');
   }

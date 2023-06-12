@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import getVgById from '../../actions/getVgById';
 import style from './VgDetails.module.css'
 import { useParams } from 'react-router-dom';
+import { strictEqual } from 'assert';
 
 
 
@@ -15,12 +16,18 @@ export default function VgDetails() {
   const vgByIdSelect = useSelector((state) => state.videogameDetails)
   const { id } = useParams();
 
+  const [defaultImage, setDefaultImage] = useState('https://play-lh.googleusercontent.com/xTAR-qIdqOBZJzQhx1IJsJgMc0kVsNGnxG-LdqVnuOgibZpqFwmKh6DcTeiuXBWCwcw');
   useEffect(() => {
     dispatch(getVgById(id))
   }, [])
 
   var detail = useSelector((state) => state.videogameDetails)
 
+  useEffect(() => {
+    if (detail.image !== null) {
+      setDefaultImage(detail.image)
+    }
+  }, [detail])
 
   return (
     <div className={style.wrapper}>
@@ -34,13 +41,13 @@ export default function VgDetails() {
                 <div className={style.divs}>
 
                   <h2 style={{ color: 'darksalmon' }}>{detail.name}</h2>
-                  <img src={detail.image} className={style.img} alt='no imag found' width='250px' height='300px' />
+                  <img src={detail.image ? detail.image : defaultImage} className={style.img} alt='no imag found' width='250px' height='300px' />
                 </div>
                 <hr />
 
                 <div style={{ maxWidth: 400 }}>
                   <h3><b style={{ color: 'darksalmon' }}>Description:</b></h3>
-                  <h5>{detail.description}</h5>
+                  <div dangerouslySetInnerHTML={{ __html: detail.description }}></div>
                 </div>
 
                 <hr />

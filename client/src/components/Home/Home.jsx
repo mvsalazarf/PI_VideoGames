@@ -23,11 +23,12 @@ export default function Home() {
   const firstVgIndex = lastVgIndex - vgPerPage;
   const currentVgs = allVg.slice(firstVgIndex, lastVgIndex);
   const [render, setRender] = useState('');
+  const [buttonAnimation, setButtonAnimation] = useState(false);
 
 
 
   const actualPage = (pageNumber) => {
-    setcurrentPage(pageNumber)
+    setcurrentPage(pageNumber);
   }
 
   function handleGenreFilter(e) {
@@ -66,7 +67,7 @@ export default function Home() {
       <div>
 
         <div>
-          <SearchBar />
+          <SearchBar pageConfig={setcurrentPage} />
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-evenly', marginInline: 600 }}>

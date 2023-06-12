@@ -2,7 +2,7 @@
   height: 90px;
   text-align: center;
   margin-top: 1px;
-  background-color:thistle;
+  background-color:rgb(170, 145, 194);
   border-bottom: black;
   border-bottom-width: 50;
   border-bottom-style: solid;
@@ -19,12 +19,12 @@
 }
 
 .h{
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 25px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 20px;
 }
 
 .button{
-  font-family: 'Bebas Neue', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   font-size: 18px;
   margin-left: 5px;
   border-radius: 20%;

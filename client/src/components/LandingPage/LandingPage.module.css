@@ -1,24 +1,57 @@
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes buttonScale {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+@keyframes animatedBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
 
 .button{
     box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);;
   margin-top: 200px;
   cursor: pointer;
     
-      font-family: 'Bebas Neue', sans-serif;
-    color: rgb(14, 8, 8);
+      font-family: 'Orbitron', sans-serif;
+    color: #9C8DC8;
     font-size: 500%;
   
     border-radius: 20px;
-    background-color:chartreuse;
- 
+    background-color:aliceblue
 }
-
-
+.button:hover {
+  animation: buttonScale 0.3s ease-in-out;
+}
 
 .div{
   height: 100vh;
   width: 100%;
-  background: url('./control.jpg');
+    background-image: url('./play.gif');
+      background-size: cover;
+      animation: animatedBackground 10s linear infinite;
    
 }
 
@@ -30,12 +63,19 @@
 .h1{
   margin-top: 0px;
   cursor: pointer;
-  font-family: 'Bungee Shade', cursive;
-    color:rgb(16, 15, 16);
-    font-size: 50px;
+  font-family: 'Press Start 2P', cursive;
+    color:rgb(255, 251, 255);
+    font-size: 80px;
   text-align: center;
     border-radius: 20px;
     background: none;
+    animation: fadeIn 1s ease-in-out;
+
+    color: #FFFFFF;
+     
+      text-shadow: #FFF 0px 0px 5px, #FFF 0px 0px 10px, #FFF 0px 0px 15px, #cc9fea 0px 0px 20px, #b074ed 0px 0px 30px, #8866a5 0px 0px 40px, #9883c1 0px 0px 50px, #333c9f 0px 0px 75px;
+      color: #FFFFFF;
+     
     
 }
 
