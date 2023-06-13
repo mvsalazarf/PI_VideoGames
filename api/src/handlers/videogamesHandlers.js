@@ -1,6 +1,5 @@
 
-const { getGamesByName, getAllGames, getVideogameById, createVideogame } = require('../controllers/videoGamesControllers');
-
+const { getGamesByName, getAllGames, getVideogameById, createVideogame, dbName } = require('../controllers/videoGamesControllers');
 
 
 const getVideogamesHandler = async (req, res) => {
@@ -38,11 +37,16 @@ const getGameDetailHandler = async (req, res,) => {
 const createVideogammeHandler = async (req, res) => {
 //   Esta ruta recibirá todos los datos necesarios para crear un videojuego y relacionarlo con sus géneros solicitados.
 const {name, image, description, released, rating, platform, genres} = req.body
-try {
+  try {
+    const existingVideoGame = await dbName(name);
+    console.log(existingVideoGame)
+    if (existingVideoGame) {
+      return res.status(400).json({error: `A videogame with the name '${name}' already exists. please choose a different name`})
+    }
   createVideogame(name, image, description, released, rating, platform, genres)
   res.status(200).send('New video game has been added')
 } catch (error) {
-  res.status(400).json({ error: error.message })
+  res.status(500).json({ error: error.message })
 }
 
   

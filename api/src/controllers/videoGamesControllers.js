@@ -58,6 +58,12 @@ const dataBasebyName = async (name) => {
   });
 };
 
+const dbName = async (name) => {
+  return await Videogame.findOne({
+    where: { name: name }
+  })
+}
+
 const dataBase = async () => {
   return await Videogame.findAll({
     include: [Genre],
@@ -112,8 +118,16 @@ const getVideogameById = async (id, source) => {
 
 const createVideogame = async (name, image, description, released, rating, platform, genres) => {
 //aqui va la lógica de la función que interactua con el modelo de la DB
-platform = platform.join(', ');
  
+    platform = platform.join(', ');
+  // const existingVideoGame = await Videogame.findOne({
+  //   where: { name: name }
+  // });
+
+  //   if (existingVideoGame) {
+  //   throw new Error(`A videogame with the name '${name}' already exists. please choose a different name`)
+  // }
+  
   let newGame = await Videogame.create({
     name: name,
     image: image,
@@ -140,5 +154,6 @@ module.exports = {
   cleanApiArray,
   getGamesByName,
   getAllGames,
-  getVideogameById
+  getVideogameById,
+  dbName
 }

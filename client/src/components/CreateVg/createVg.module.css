@@ -3,30 +3,60 @@
     color: rgb(145, 6, 34);
 }
 
+
+
 .wrapper{
   width: 700px;
     margin: 2% auto;
     font-family: 'Kosugi Maru', sans-serif;
     font-size: large;
-  
-    
+  margin-top: 0;
+   
+}
+
+.pageContainer{
+  height: 100vh;
+    background-image: url('../Home/pacman.jpg');
+    background-size: cover;
+    background-position: center;
+   margin-top: 0;
 }
 
 .h1{
-  color: rgb(8, 7, 8);
+  color: rgb(213, 191, 213);
     position: relative;
     margin: 0px;
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Orbitron', sans-serif;
       font-size: 25px;
 }
 .form{
-      background: rgb(242, 198, 223);
+      background: rgb(230, 211, 246);
       border-radius: 25px;
       padding: 1.9em;
       margin-top: 30px;
       border: 3px solid rgb(9, 9, 11);
       box-shadow: 4px 3px 6px 2px rgb(41, 233, 240);
       justify-content: center;
+}
+
+.form input:hover {
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.form textarea:hover{
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+}
+.form input {
+  transition: box-shadow 0.3s ease;
+}
+.form textarea {
+  transition: box-shadow 0.3s ease;
+}
+
+.form button:hover {
+  transform: scale(1.1);
+}
+.form button {
+  transition: transform 0.3s ease;
 }
 
 .msgarea{

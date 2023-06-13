@@ -29,12 +29,20 @@
 
     }
 
-       
+.genre {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 14px;
+      color: #000000;
+}
   
 
 .h4{
 margin: 2px;
   padding: 1px;
+  font-family: 'Press Start 2P', cursive;
+  color: #6026f2;
+  font-size: 13px;
+  
 }
 
 .image{

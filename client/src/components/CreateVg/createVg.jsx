@@ -5,6 +5,7 @@ import createVg from '../../actions/createVg'
 import getVideogames from '../../actions/getVideogames';
 import style from './createVg.module.css'
 import getgenres from '../../actions/getGenres';
+import axios from 'axios';
 
 
 
@@ -21,25 +22,38 @@ export default function CreateVg() {
     genres: [],
   });
 
+
+  const [errors, setErrors] = useState({})
   function validate(input) {
     let errors = {}
-    if (!input.name || input.name.length > 10) {
+    if (!input.name) {
       errors.name = 'Name is required'
-    } else if (!input.rating || input.rating < 0 || input.rating > 10) {
-      errors.rating = 'Rating must be a nummber between 0-10'
-    } else if (!input.description.length || input.description.length > 20) {
-      errors.description = 'Description missing or too long'
-    }
+    } else if (input.name.length > 20) {
+      errors.name = 'Name is too long'
+    } else if (!/^(?:[1-9]\d{0,2}(?:,\d{3})*|0)(?:\.\d+)?$/.test(input.rating) ||
+      input.rating < 0 || input.rating > 10) {
+      errors.rating = 'Wrong format for Rating. Should be a number between 0-10'
+    } else if (!input.description.length) {
+      errors.description = 'Description required'
+    } else if (input.description.length > 200) {
+      errors.description = 'Description too long, must not exceed 300 characters'
+    } else if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(input.released)) {
+      errors.released = 'Wrong released date format. Should be YYYY-MM-DD OR YYYY-M-D'
+    } else if (!input.released) {
+      errors.released = 'released date required'
+    } else if (input.genres.length === 0) {
+      errors.genres = 'You must select at least one Genre'
+    } else if (input.platform.length === 0) {
+      errors.platform = 'You must select at least one platform'
+    };
     return errors
-  };
+  }
 
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const [errors, setErrors] = useState({})
   let allGenres = useSelector((state) => state.genres)
-
-
+  const createVideoGame = useSelector((state) => state.createVg);
   const platform = ['playstation', 'xbox', 'pc', 'nintendo']
 
   useEffect(() => {
@@ -74,6 +88,9 @@ export default function CreateVg() {
         platform: [...input.platform, selectedPlatform]
       });
     }
+    setErrors(validate({
+      ...input, [e.target.name]: e.target.value
+    }))
   }
 
   function handleGenres(e) {
@@ -84,6 +101,7 @@ export default function CreateVg() {
 
     // Actualizar el estado según si se agrega o se elimina el género seleccionado
     if (isGenreSelected) {
+
       setInput({
         ...input,
         genres: input.genres.filter(genre => genre !== selectedGenre)
@@ -94,43 +112,37 @@ export default function CreateVg() {
         genres: [...input.genres, selectedGenre]
       });
     }
+    setErrors(validate({
+      ...input, [e.target.name]: e.target.value
+    }))
+
   }
 
-  function handleSubmit(e) {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!input.name || input.name.length > 10) {
-      return alert('Name missing or too long')
-    }
-    if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(input.released)) { return alert('Wrong released date format. Should be YYYY-MM-DD OR YYYY-M-D') }
-    if (!input.rating) { return alert('Rating is required') }
-    if (!input.description.length || input.description.length > 20) { return alert('Description missing or too long') }
-    if (!/^(?:[1-9]\d{0,2}(?:,\d{3})*|0)(?:\.\d+)?$/.test(input.rating) ||
-      input.rating < 0 || input.rating > 10) {
-      return alert('Wrong format for Rating. Should be a number between 0-10')
-    }
+    dispatch(getVideogames());
+    const vgCard = input;
     if (input.genres.length === 0) { return alert('Genre is required') }
     if (input.platform.length === 0) { return alert('Platform is required') }
+    if (!vgCard.image) {
+      vgCard.image = 'https://colombia.unir.net/wp-content/uploads/sites/4/2015/04/videojuegos_1920x1080.jpg';
+    }
+    // dispatch(createVg(vgCard))
+    try {
+      const { data } = await axios.post('http://localhost:3001/videogames', vgCard)
+      alert(`The videogame ${input.name} has been added correctly`)
 
+    } catch (error) {
+      alert(error.response.data.error)
 
-
-    dispatch(createVg(input));
-    dispatch(getVideogames());
-    alert(`The videogame ${input.name} has been added correctly`)
-    setInput({
-      name: '',
-      image: '',
-      description: '',
-      released: '',
-      rating: 0,
-      platform: [],
-      genres: [],
-    })
+    }
     history.push('/home')
   }
 
 
   return (
-    <>
+
+    <div className={style.pageContainer}>
 
       <div className={style.wrapper}>
         <h1 className={style.h1}>Create your own videogame</h1>
@@ -138,8 +150,7 @@ export default function CreateVg() {
         <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.container}>
             <label className={style.name}> <b>Game Name:</b></label>
-            <input className={style.name} onChange={handleOnChange} onBlur={handleOnChange}
-              type='text' name='name' value={input.name} />
+            <input className={style.name} onChange={handleOnChange} type='text' name='name' value={input.name} />
             {errors.name && (<p className={style.error}> {errors.name} </p>)}
           </div>
           <br />
@@ -154,6 +165,7 @@ export default function CreateVg() {
                 input.image ?
                   <img src={input.image} alt={input.name} className={style.img} /> :
                   <>
+                    <img src='https://colombia.unir.net/wp-content/uploads/sites/4/2015/04/videojuegos_1920x1080.jpg' alt={input.image} className={style.img} />
                   </>
               }
             </div>
@@ -171,6 +183,8 @@ export default function CreateVg() {
             <label> <b>Released date:</b></label>
             <input onChange={handleOnChange} type='text' name='released' value={input.released}
               placeholder='YYYY-MM-DD' />
+            {errors.released && (<p className={style.error}> {errors.released} </p>)}
+
           </div>
 
           <div className={style.rating}>
@@ -186,6 +200,7 @@ export default function CreateVg() {
               {allGenres?.map(p => {
                 return (<> <p><input onChange={handleGenres} key={p.id} id={p.id} type="checkbox" value={p.name} /> {p.name}</p></>)
               })}
+              {errors.genres ? <p className={style.error}> {errors.genres} </p> : <> </>}
             </div>
 
           </div>
@@ -194,8 +209,9 @@ export default function CreateVg() {
             <label><b>Platforms:</b></label>
             <div style={{ display: 'flex', maxWidth: 800, flexWrap: 'wrap', justifyContent: 'space-around' }}>
               {platform?.map(p => {
-                return (<> <p><input onChange={handlePlatform} key={p} type="checkbox" value={p} /> {p}</p></>)
+                return (<> <p><input onChange={handlePlatform} key={p.platform} type="checkbox" value={p} /> {p}</p></>)
               })}
+              {errors.platform && (<p className={style.error}> {errors.platform} </p>)}
             </div>
           </div>
 
@@ -209,6 +225,6 @@ export default function CreateVg() {
         </form >
       </div >
 
-    </>
+    </div>
   )
 }

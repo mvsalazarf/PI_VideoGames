@@ -22,8 +22,8 @@ export default function VgCard({ name, image, genres, rating }) {
     <div className={st.div}>
 
       <div className={st.card}>
-        <h4 className={st.h4}>{name}</h4>
-        <p>{genre}</p>
+        <h3 className={st.h4}>{name}</h3>
+        <h4 className={st.genre}>{genre}</h4>
         <img src={image} alt={name} className={st.image} />
         <p>{rating}</p>
       </div>

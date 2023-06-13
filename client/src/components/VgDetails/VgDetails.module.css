@@ -1,10 +1,16 @@
 .wrapper{
   display: flex;
-    margin: 1%;
-    width: 90%;
+    /* margin: 1%; */
+   
     justify-content: space-around;
     /* background-color: bisque; */
   
+    height: 150vh;
+    
+      background-image: url('../Home/pacman.jpg');
+      background-size: cover;
+      background-position: center;
+      margin-top: 0;
   
 }
 
@@ -19,6 +25,18 @@
 .img{
   display: flex;
     margin-left: 50px;
+    border-radius: 15%;
    
     
 }
+
+.divs h2 {
+  font-family: 'Orbitron', sans-serif;
+
+}
+.h {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 23px;
+  text-shadow: azure;
+}
+

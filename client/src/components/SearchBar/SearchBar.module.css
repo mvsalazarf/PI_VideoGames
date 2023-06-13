@@ -22,12 +22,24 @@
   font-family: 'Orbitron', sans-serif;
   font-size: 20px;
 }
+.h:hover {
+  transform: scale(1.1);
+}
+.h {
+  transition: transform 0.3s ease;
+}
 
 .button{
   font-family: 'Orbitron', sans-serif;
   font-size: 18px;
   margin-left: 5px;
   border-radius: 20%;
+  transition: transform 0.3s ease;
+}
+
+.button:hover {
+ 
+  transform: scale(1.1);
 }
 
 .input{
