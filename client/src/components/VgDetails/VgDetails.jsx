@@ -12,7 +12,6 @@ import { useParams } from 'react-router-dom';
 
 export default function VgDetails() {
   const dispatch = useDispatch();
-  const vgByIdSelect = useSelector((state) => state.videogameDetails)
   const { id } = useParams();
 
   const [defaultImage, setDefaultImage] = useState('https://play-lh.googleusercontent.com/xTAR-qIdqOBZJzQhx1IJsJgMc0kVsNGnxG-LdqVnuOgibZpqFwmKh6DcTeiuXBWCwcw');
@@ -21,11 +20,6 @@ export default function VgDetails() {
   }, [])
 
   var detail = useSelector((state) => state.videogameDetails)
-  const [loading, setLoading] = useState({
-    loading: true
-  })
-
-
 
   useEffect(() => {
     if (detail.image !== null) {
@@ -36,7 +30,7 @@ export default function VgDetails() {
   return (
     <div className={style.wrapper}>
       {
-        !vgByIdSelect.id ? <h1 style={{
+        !detail.id ? <h1 style={{
           display: 'flex', justifyContent: 'space-around'
         }}>Loading...</h1> :
           (
@@ -74,7 +68,7 @@ export default function VgDetails() {
 
                 <div style={{ maxWidth: 200, marginLeft: 20, marginTop: 100, marginRight: 20 }} >
                   <h4><b style={{ color: 'darksalmon' }} className={style.h}>Genres:</b> <div style={{ color: 'white' }}>{detail.genres}</div></h4>
-                  <h4> <b style={{ color: 'darksalmon' }} className={style.h}>Platforms:</b><div style={{ color: 'white' }}>{detail?.platforms}</div></h4>
+                  <h4> <b style={{ color: 'darksalmon' }} className={style.h}>Platforms:</b><div style={{ color: 'white' }}>{detail.platform ? detail.platform : detail.platforms}</div></h4>
                 </div>
               </div>
             </>

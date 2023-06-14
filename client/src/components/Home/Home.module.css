@@ -40,6 +40,7 @@
     background-color: antiquewhite;
     background-image: url('./pacman.jpg');
       background-size: cover;
+    
 }
 .div4{
   display: flex;

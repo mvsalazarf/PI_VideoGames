@@ -23,7 +23,7 @@ export default function Home() {
   const firstVgIndex = lastVgIndex - vgPerPage;
   const currentVgs = allVg.slice(firstVgIndex, lastVgIndex);
   const [render, setRender] = useState('');
-  const [buttonAnimation, setButtonAnimation] = useState(false);
+
 
 
 

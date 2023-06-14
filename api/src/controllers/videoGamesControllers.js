@@ -53,7 +53,7 @@ const dataBasebyName = async (name) => {
     //incluyendo también la información del modelo relacionado Genre 
     where: {
       //lo busca por el nombre pudiendo terminar en algo inexacto
-      name: { [Op.like]: `%{name}%` }
+      name: { [Op.like]: `%${name.toLowerCase()}%` }
     }
   });
 };
@@ -75,6 +75,7 @@ const getGamesByName = async (name) => {
   //en esta función junto toda la información de la API más la base de datos
   const apiData = await cleanApiArray(name);
   const dbData = await dataBasebyName(name);
+  console.log(dbData)
   const totalResult = [...dbData, ...apiData];
   const first15Elements = totalResult.slice(0, 15);
   return first15Elements;
@@ -129,7 +130,7 @@ const createVideogame = async (name, image, description, released, rating, platf
   // }
   
   let newGame = await Videogame.create({
-    name: name,
+    name: name.toLowerCase(),
     image: image,
     description: description,
     released: released,
