@@ -15,7 +15,7 @@
 }
 
 .pageContainer{
-  height: 100vh;
+  height: 150vh;
     background-image: url('../Home/pacman.jpg');
     background-size: cover;
     background-position: center;
@@ -114,4 +114,11 @@ display: flex;
   margin: 3%;
     justify-content: center
 }
+.errorsContainer {
+  margin-top: 10px;
+}
 
+.error {
+  color: red;
+  font-size: 14px;
+}

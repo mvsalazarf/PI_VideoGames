@@ -9,6 +9,8 @@ export default function SearchBar({ pageConfig }) {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
 
+
+
   function handleInputChange(e) {
     e.preventDefault();
     setName(e.target.value);

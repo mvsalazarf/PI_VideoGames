@@ -13,13 +13,21 @@ import { useParams } from 'react-router-dom';
 export default function VgDetails() {
   const dispatch = useDispatch();
   const { id } = useParams();
+  var detail = useSelector((state) => state.videogameDetails)
 
   const [defaultImage, setDefaultImage] = useState('https://play-lh.googleusercontent.com/xTAR-qIdqOBZJzQhx1IJsJgMc0kVsNGnxG-LdqVnuOgibZpqFwmKh6DcTeiuXBWCwcw');
   useEffect(() => {
     dispatch(getVgById(id))
   }, [])
 
-  var detail = useSelector((state) => state.videogameDetails)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (detail?.id == id) {
+      setLoading(false)
+    }
+  }, [detail])
+
 
   useEffect(() => {
     if (detail.image !== null) {
@@ -30,7 +38,7 @@ export default function VgDetails() {
   return (
     <div className={style.wrapper}>
       {
-        !detail.id ? <h1 style={{
+        loading ? <h1 style={{
           display: 'flex', justifyContent: 'space-around'
         }}>Loading...</h1> :
           (

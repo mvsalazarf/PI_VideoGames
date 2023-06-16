@@ -129,6 +129,7 @@ const createVideogame = async (name, image, description, released, rating, platf
   //   throw new Error(`A videogame with the name '${name}' already exists. please choose a different name`)
   // }
   
+  
   let newGame = await Videogame.create({
     name: name.toLowerCase(),
     image: image,

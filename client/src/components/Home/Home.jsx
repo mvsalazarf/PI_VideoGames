@@ -33,6 +33,7 @@ export default function Home() {
 
   function handleGenreFilter(e) {
     e.preventDefault();
+    setcurrentPage(1)
     if (e.target.value === 'All') {
       dispatch(getVideogames())
     } else {

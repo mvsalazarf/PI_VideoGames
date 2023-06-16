@@ -53,7 +53,7 @@ export default function CreateVg() {
   const dispatch = useDispatch();
   const history = useHistory();
   let allGenres = useSelector((state) => state.genres)
-  const createVideoGame = useSelector((state) => state.createVg);
+  // const createVideoGame = useSelector((state) => state.createVg);
   const platform = ['playstation', 'xbox', 'pc', 'nintendo']
 
   useEffect(() => {
@@ -65,6 +65,8 @@ export default function CreateVg() {
       ...input,
       [e.target.name]: e.target.value
     })
+  }
+  function handleOnBlur(e) {
     setErrors(validate({
       ...input, [e.target.name]: e.target.value
     }))
@@ -150,15 +152,15 @@ export default function CreateVg() {
         <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.container}>
             <label className={style.name}> <b>Game Name:</b></label>
-            <input className={style.name} onChange={handleOnChange} type='text' name='name' value={input.name} />
-            {errors.name && (<p className={style.error}> {errors.name} </p>)}
+            <input className={style.name} onChange={handleOnChange} type='text' name='name' value={input.name} onBlur={handleOnBlur} />
+            {/* {errors.name && (<p className={style.error}> {errors.name} </p>)} */}
           </div>
           <br />
 
           <div className={style.container}>
             <div className={style.label}>
               <label><b> Image:</b></label>
-              <input onChange={handleOnChange} type='text' name='image' value={input.image} />
+              <input onChange={handleOnChange} type='text' name='image' value={input.image} onBlur={handleOnBlur} />
             </div>
             <div className={style.img}>
               {
@@ -174,33 +176,33 @@ export default function CreateVg() {
 
           <div className={style.msgarea}>
             <label className={style.labeldes}> <b>Description:</b></label>
-            <textarea onChange={handleOnChange} type='text' name='description' value={input.description} />
-            {errors.description && (<p className={style.error}> {errors.description} </p>)}
+            <textarea onChange={handleOnChange} type='text' name='description' value={input.description} onBlur={handleOnBlur} />
+            {/* {errors.description && (<p className={style.error}> {errors.description} </p>)} */}
           </div>
 
 
           <div className={style.reles}>
             <label> <b>Released date:</b></label>
             <input onChange={handleOnChange} type='text' name='released' value={input.released}
-              placeholder='YYYY-MM-DD' />
-            {errors.released && (<p className={style.error}> {errors.released} </p>)}
+              placeholder='YYYY-MM-DD' onBlur={handleOnBlur} />
+            {/* {errors.released && (<p className={style.error}> {errors.released} </p>)} */}
 
           </div>
 
           <div className={style.rating}>
             <label><b>Rating:</b></label>
-            <input onChange={handleOnChange} onBlur={handleOnChange}
-              type='text' name='rating' value={input.rating} placeholder='ex 4.3' />
-            {errors.rating && (<p className={style.error}> {errors.rating} </p>)}
+            <input onChange={handleOnChange}
+              type='text' name='rating' value={input.rating} placeholder='ex 4.3' onBlur={handleOnBlur} />
+            {/* {errors.rating && (<p className={style.error}> {errors.rating} </p>)} */}
           </div>
           <hr />
           <div>
             <label><b>Genres:</b></label>
             <div style={{ display: 'flex', maxWidth: 800, flexWrap: 'wrap', justifyContent: 'space-around' }}>
               {allGenres?.map(p => {
-                return (<> <p><input onChange={handleGenres} key={p.id} id={p.id} type="checkbox" value={p.name} /> {p.name}</p></>)
+                return (<> <p><input onChange={handleGenres} key={p.id} id={p.id} type="checkbox" value={p.name} onBlur={handleOnBlur} /> {p.name}</p></>)
               })}
-              {errors.genres ? <p className={style.error}> {errors.genres} </p> : <> </>}
+              {/* {errors.genres ? <p className={style.error}> {errors.genres} </p> : <> </>} */}
             </div>
 
           </div>
@@ -209,9 +211,9 @@ export default function CreateVg() {
             <label><b>Platforms:</b></label>
             <div style={{ display: 'flex', maxWidth: 800, flexWrap: 'wrap', justifyContent: 'space-around' }}>
               {platform?.map(p => {
-                return (<> <p><input onChange={handlePlatform} key={p.platform} type="checkbox" value={p} /> {p}</p></>)
+                return (<> <p><input onChange={handlePlatform} key={p.platform} type="checkbox" value={p} onBlur={handleOnBlur} /> {p}</p></>)
               })}
-              {errors.platform && (<p className={style.error}> {errors.platform} </p>)}
+              {/* {errors.platform && (<p className={style.error}> {errors.platform} </p>)} */}
             </div>
           </div>
 
@@ -220,6 +222,13 @@ export default function CreateVg() {
             <button type='submit' style={{ maxHeight: 20, }}><b>Add Game</b></button>
             <><Link to='/home'><button><b>Back To Home</b></button></Link> </>
           </div>
+          {Object.keys(errors).length > 0 && (
+            <div className={style.errorsContainer}>
+              {Object.values(errors).map((errorMsg, index) => (
+                <p key={index} className={style.error}>{errorMsg}</p>
+              ))}
+            </div>
+          )}
 
 
         </form >
